@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <title>CO2-Data</title>
+    <h:outputStylesheet name="css/screen.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h:commandLink value="Manage Data" action="login.xhtml?faces-redirect=true"></h:commandLink>
+    </h:form>
+    <h:form>
+        <div class="card">
+            <p:chart id="chart" type="line" model="#{datasource.createChartModel()}" style="height: 25em;width: 40em"/>
+        </div>
+    </h:form>
+
+    <h:form id="formDataTable">
+        <p:dataTable var="d"
+                     value="#{datasource.data.subList(1, datasource.data.size())}"
+                     scrollable="true"
+                     scrollHeight="600"
+                     allowUnsorting="true"
+                     sortMode="single"
+                     emptyMessage="No country found.">
+            <f:facet name="header">CO2-Emissions</f:facet>
+            <p:column style="width: 32em">
+                <h:commandLink action="#{datasource.updateChar(d)}">
+                    <img src="chart-line-solid.svg" alt="Line-Chart" width="20"/>
+                </h:commandLink>
+            </p:column>
+            <p:column headerText="Country Name" sortBy="#{d[0]}" sortOrder="asc" filterBy="#{d[0]}">
+                <h:outputText value="#{d[0]}"/>
+            </p:column>
+            <p:column headerText="Most Recent Year">
+                <h:outputText value="#{datasource.data[0][datasource.data[0].size()-1]}"/>
+            </p:column>
+            <p:column headerText="Most Recent Value (MtCO2e)" sortBy="#{datasource.emptyCheck(d[d.size()-1])}" sortFunction="#{datasource.sort}">
+                <h:outputText value="#{datasource.emptyCheck(d[d.size()-1])}"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+</h:body>
+
+</html>
