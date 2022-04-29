@@ -1,5 +1,6 @@
 package de.iu.jakarta_jsf.jsf;
 
+import de.iu.jakarta_jsf.services.AuthService;
 import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;

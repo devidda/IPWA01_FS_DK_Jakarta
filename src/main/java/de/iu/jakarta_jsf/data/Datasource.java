@@ -4,14 +4,13 @@ import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
 
 import jakarta.annotation.ManagedBean;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.chart.*;
 
 import java.io.*;
-import java.text.Collator;
 import java.util.*;
 
 @ManagedBean

@@ -1,4 +1,4 @@
-package de.iu.jakarta_jsf.jsf;
+package de.iu.jakarta_jsf.services;
 
 import java.io.Serializable;
 
