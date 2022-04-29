@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-160.0" y="-97.0">de.iu.jakarta_jsf.jsf.LoginBean</node>
+    <node x="456.0" y="-57.5">de.iu.jakarta_jsf.persistence.UserDAO</node>
+    <node x="-83.25" y="127.0">de.iu.jakarta_jsf.services.AuthService</node>
+    <node x="151.0" y="-44.5">de.iu.jakarta_jsf.services.AuthServiceImpl</node>
+    <node x="201.75" y="101.0">de.iu.jakarta_jsf.persistence.UserEntity</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="de.iu.jakarta_jsf.services.AuthServiceImpl" target="de.iu.jakarta_jsf.persistence.UserDAO" relationship="TO_ONE">
+      <point x="127.5" y="-0.0" />
+      <point x="-160.0" y="-0.0" />
+    </edge>
+    <edge source="de.iu.jakarta_jsf.jsf.LoginBean" target="de.iu.jakarta_jsf.services.AuthService" relationship="TO_ONE">
+      <point x="0.0" y="84.0" />
+      <point x="-63.75" y="-31.5" />
+    </edge>
+    <edge source="de.iu.jakarta_jsf.services.AuthServiceImpl" target="de.iu.jakarta_jsf.services.AuthService" relationship="REALIZATION">
+      <point x="0.0" y="31.5" />
+      <point x="278.5" y="91.0" />
+      <point x="108.0" y="91.0" />
+      <point x="63.75" y="-31.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.5" showDependencies="true" x="318.0" y="69.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
