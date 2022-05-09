@@ -6,9 +6,11 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.Serializable;
+import java.net.URL;
 
 @ManagedBean
 @Named
@@ -18,7 +20,7 @@ public class  LoginBean implements Serializable {
     public static final String INDEX_XHTML_URL = "index.xhtml";
     public static final String LOGIN_XHTML_URL = "login.xhtml";
     public static final String USER_IS_LOGGED_IN = "user_is_logged_in";
-    public static final String SECRET_XHTML_URL = "secret.xhtml";
+    public static final String SECRET_XHTML_URL = "management.xhtml";
 
     @Inject
     AuthService authService;
@@ -45,7 +47,7 @@ public class  LoginBean implements Serializable {
     public String validateUsernamePassword() {
         boolean loggedIn = authService.validate(emailAdress, password);
         if (loggedIn) {
-            getHttpSession().setAttribute(USER_IS_LOGGED_IN, "true");
+            getHttpSession(true).setAttribute(USER_IS_LOGGED_IN, "true");
             // ?faces-redirect=true solves "one URL behind" problem
             return SECRET_XHTML_URL + "?faces-redirect=true";
         } else {
@@ -53,12 +55,40 @@ public class  LoginBean implements Serializable {
         }
     }
 
-    private HttpSession getHttpSession() {
-        return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    private HttpSession getHttpSession(boolean create) {
+        return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(create);
     }
 
     public String logout() {
-        getHttpSession().invalidate();
+        getHttpSession(false).invalidate();
         return INDEX_XHTML_URL + "?faces-redirect=true";
     }
+
+    public String enterMangement() {
+        HttpSession session = getHttpSession(false);
+
+        if (userIsLoggedIn(session)) {
+            return SECRET_XHTML_URL + "?faces-redirect=true";
+        }
+        return LOGIN_XHTML_URL + "?faces-redirect=true";
+
+    }
+
+    private boolean userIsLoggedIn(HttpSession session) {
+        return session != null && session.getAttribute(USER_IS_LOGGED_IN) != null && session.getAttribute(USER_IS_LOGGED_IN).equals("true");
+    }
+
+    public boolean renderHomeBtn() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+
+        String URI = request.getRequestURI();
+
+        if (URI.contains("index.xhtml")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

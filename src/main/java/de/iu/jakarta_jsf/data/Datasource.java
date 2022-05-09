@@ -81,6 +81,9 @@ public class Datasource implements Serializable {
         series.setLabel(countryChard.get(0));
         model.addSeries(series);
         model.setLegendPosition("e");
+        model.setSeriesColors("62656a,a5a5a5,929397");
+        model.setAnimate(true);
+        model.setTitle("Trend of the CO2-emissions of " + countryChard.get(0) + " in MtCO2e");
 
         Axis y = model.getAxis(AxisType.Y);
         y.setMin(Collections.min(fList));
