@@ -10,6 +10,9 @@ import java.io.IOException;
 
 import static de.iu.jakarta_jsf.jsf.LoginBean.*;
 
+/**
+ * Use this filter for all requests that contain the .xhtml file extension.
+ */
 @WebFilter(filterName = "AuthFilter", urlPatterns = {"*.xhtml"})
 public class AuthorizationFilter  implements Filter {
 
@@ -22,6 +25,9 @@ public class AuthorizationFilter  implements Filter {
         Filter.super.init(filterConfig);
     }
 
+    /**
+     * This method is executed for each HttpRequest that matches the @WebFilter(urlPatterns = {"*.xhtml"}).
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
@@ -37,15 +43,24 @@ public class AuthorizationFilter  implements Filter {
         }
     }
 
+    /**
+     * Redirects to the main page.
+     */
     private void redirectToStart(HttpServletResponse servletResponse) throws IOException {
         HttpServletResponse response = servletResponse;
         response.sendRedirect(INDEX_XHTML_URL);
     }
 
+    /**
+     * Check if the HttpSession has the USER_IS_LOGGED_IN attribute.
+     */
     private boolean userIsLoggedIn(HttpSession session) {
         return session != null && session.getAttribute(USER_IS_LOGGED_IN) != null && session.getAttribute(USER_IS_LOGGED_IN).equals("true");
     }
 
+    /**
+     * Check if the requested page is the index page or a resource.
+     */
     private boolean isPrivatePage(String url) {
         return !(url.contains(INDEX_XHTML_URL) || url.contains(LOGIN_XHTML_URL) || url.contains(JAKARTA_FACES_RESOURCE));
     }

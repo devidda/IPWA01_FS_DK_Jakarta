@@ -13,16 +13,27 @@ import java.util.List;
 
 import static de.iu.jakarta_jsf.persistence.UserEntity.COLUMN_MAIL_ADDRESS;
 
+/**
+ * Class to access and store values of the database. (Database Tier)
+ */
 @Stateless
 public class UserDAO {
 
     @PersistenceContext
     EntityManager em;
 
+    /**
+     * Used to create entries in the database.
+     */
     public void persist(UserEntity userEntity) {
         em.persist(userEntity);
     }
 
+    /**
+     * Builds and uses a query to access data in the database by the given email-address.
+     * If the email-address is found, return a {@link UserEntity} (which also contains the password).
+     * If there is no match in the database with the given email-address, return nothing.
+     */
     public UserEntity findUSerByMailAddress(String enteredEmailAddress) {
 
         // SELECT * FROM user WHERE mailAddress = enteredEmailAddress

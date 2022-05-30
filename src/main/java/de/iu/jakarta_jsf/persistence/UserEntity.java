@@ -2,6 +2,10 @@ package de.iu.jakarta_jsf.persistence;
 
 import jakarta.persistence.*;
 
+/**
+ * Class to store data of the user of the application. As a JPA Entity, it can be stored in the database.
+ * Accessed and processed for validation in {@link de.iu.jakarta_jsf.services.AuthServiceImpl}.
+ */
 @Entity
 public class UserEntity {
 
@@ -16,6 +20,7 @@ public class UserEntity {
 
     private String password;
 
+    // getter and setter methods
     public long getId() {
         return id;
     }

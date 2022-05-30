@@ -5,6 +5,10 @@ import jakarta.ejb.Startup;
 import jakarta.ejb.Singleton;
 import jakarta.inject.Inject;
 
+/**
+ * Helper-class to initialize a few entries of user credentials in the database.
+ * setupTestData() method gets executed when the application is started.
+ */
 @Singleton
 @Startup
 public class TestDataGenerator {

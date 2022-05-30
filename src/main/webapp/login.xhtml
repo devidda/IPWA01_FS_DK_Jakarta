@@ -10,17 +10,17 @@
             <h3>Login</h3>
             <h:panelGrid columns="2" border="0" cellpadding="3" cellspacing="1">
 
-                    <h:outputText for="emailAdressInput" value="E-Mail-Adresse"></h:outputText>
-                    <h:inputText id="emailAdressInput" value="#{loginBean.emailAdress}"></h:inputText>
+                    <h:outputText for="emailAdressInput" value="E-Mail-Adresse"/>
+                    <h:inputText id="emailAdressInput" value="#{loginBean.emailAdress}" required="true"/>
 
 
-                    <h:outputText for="passwordInput" value="Passwort"></h:outputText>
-                    <h:inputSecret id="passwordInput" value="#{loginBean.password}"></h:inputSecret>
+                    <h:outputText for="passwordInput" value="Passwort"/>
+                    <h:inputSecret id="passwordInput" value="#{loginBean.password}" required="true"/>
 
                 <h:commandButton id="btnBack" value="Back"
-                                 action="index.xhtml?faces-redirect=true"></h:commandButton>
+                                 action="index.xhtml?faces-redirect=true"/>
                 <h:commandButton id="btnLogin" value="Login"
-                                 action="#{loginBean.validateUsernamePassword}"></h:commandButton>
+                                 action="#{loginBean.validateUsernamePassword}"/>
             </h:panelGrid>
 
         </h:form>

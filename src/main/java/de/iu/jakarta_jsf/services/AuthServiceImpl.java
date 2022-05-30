@@ -11,6 +11,12 @@ public class AuthServiceImpl implements AuthService {
     @Inject
     UserDAO dao;
 
+    /**
+     * Check if the entered credentials are valid.
+     * @param enteredEmailAddress
+     * @param enteredPassword
+     * @return true, if the entered credentials are valid.
+     */
     @Override
     public boolean validate(String enteredEmailAddress, String enteredPassword) {
 
@@ -21,7 +27,5 @@ public class AuthServiceImpl implements AuthService {
             boolean passwordIsCorrect = enteredPassword.equals(userEntity.getPassword());
             return passwordIsCorrect;
         }
-
-        // return enteredEmailAddress.equals("david.kort@gmx.de") && enteredPassword.equals("fff");
     }
 }

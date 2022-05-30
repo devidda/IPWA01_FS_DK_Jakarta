@@ -13,23 +13,34 @@ import org.primefaces.model.chart.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This class simply accesses a csv file with CO2 data and visualizes it using the PrimeFaces framework.
+ */
 @ManagedBean
 @Named
 @SessionScoped
 public class Datasource implements Serializable {
 
-    // private static final String dataFilePath = "src\\main\\resources\\global_co2.csv";
-    private static final String dataFilePath = "ghg-emissions.csv";
+    private static final String DATA_FILE_PATH = "ghg-emissions.csv";
 
     List<List<String>> data = readFile();
-
     List<String> countryChard = data.get(2);
 
-    private List<List<String>> readFile() {
+    public List<List<String>> getData() {
+        return data;
+    }
 
-        // https://www.baeldung.com/java-csv-file-array
+    public List<String> getCountryChard() {
+        return countryChard;
+    }
+
+    /**
+     * Reads in the csv file for further processing.
+     */
+    private List<List<String>> readFile() {
         List<List<String>> records = new ArrayList<List<String>>();
-        try (CSVReader csvReader = new CSVReader(new FileReader(dataFilePath));) {
+
+        try (CSVReader csvReader = new CSVReader(new FileReader(DATA_FILE_PATH));) {
             String[] values = null;
             while ((values = csvReader.readNext()) != null) {
                 records.add(Arrays.asList(values));
@@ -40,10 +51,9 @@ public class Datasource implements Serializable {
         return records;
     }
 
-    public List getData() {
-        return data;
-    }
-
+    /**
+     * Returns content of a data cell and a "No data recorded."-statement if its empty.
+     */
     public String emptyCheck(String dataCell) {
         if (!dataCell.equals("")) {
             return dataCell;
@@ -52,28 +62,36 @@ public class Datasource implements Serializable {
         }
     }
 
+    /**
+     * Converts a string into a float
+     * @param  input a string which is convertible to float
+     */
     public Float convertFloat(String input) {
         return Float.parseFloat(input);
     }
 
+    /**
+     * Sort-Function to compare two given values. Used to sort the MtCO2e-values in the data table.
+     */
     public int sort(String ent1, String ent2) {
         float e1 = Float.parseFloat(ent1);
         float e2 = Float.parseFloat(ent2);
         return Float.compare(e1, e2);
     }
 
+    /**
+     * Creates a LineChartModel with the PrimeFaces framework to be displayed on the main page (index.xhtml).
+     * On first setup it displays the data for the CO2 emission of the USA.
+     */
     public LineChartModel createChartModel() {
         LineChartModel model = new LineChartModel();
         LineChartSeries series = new LineChartSeries();
         List<String> c = countryChard.subList(2, countryChard.size());
-
-        // c.remove(0);
         List<Float> fList = new ArrayList<>();
 
         for (String s : c) {
             fList.add(Float.parseFloat(s));
         }
-
         for (int i = 0; i < fList.size(); i++) {
             series.set(data.get(0).get(2 + i), fList.get(i));
         }
@@ -99,6 +117,9 @@ public class Datasource implements Serializable {
         return model;
     }
 
+    /**
+     * Reloads the displayed LineChartModel to visualize the data of the selected country.
+     */
     public void updateChar(List<String > countryName) {
         countryChard = countryName;
         PrimeFaces.current().ajax().update("chart");
