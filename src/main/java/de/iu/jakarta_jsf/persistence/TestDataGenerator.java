@@ -19,12 +19,12 @@ public class TestDataGenerator {
     @PostConstruct
     public void setupTestData() {
         UserEntity user1 = new UserEntity();
-        user1.setMailAddress("d.trump@foo.bar");
+        user1.setMailAddress("admin@foo.bar");
         user1.setPassword("1234");
         userDAO.persist(user1);
 
         UserEntity user2 = new UserEntity();
-        user2.setMailAddress("j.biden@foo.bar");
+        user2.setMailAddress("researcher@foo.bar");
         user2.setPassword("1234");
         userDAO.persist(user2);
     }

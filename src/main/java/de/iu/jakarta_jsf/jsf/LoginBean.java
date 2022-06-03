@@ -6,9 +6,9 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * This class is the Backing-Bean for the login.xhtml page and manages the login-process.
@@ -20,8 +20,10 @@ public class  LoginBean implements Serializable {
 
     public static final String INDEX_XHTML_URL = "index.xhtml";
     public static final String LOGIN_XHTML_URL = "login.xhtml";
-    public static final String USER_IS_LOGGED_IN = "user_is_logged_in";
     public static final String SECRET_XHTML_URL = "management.xhtml";
+    public static final String USER_IS_LOGGED_IN = "user_is_logged_in";
+    public static final String USER_IS_ADMIN = "user_is_admin";
+
 
     /**
      * Invokes an implementation of {@link AuthService} from the application-tier.
@@ -32,15 +34,15 @@ public class  LoginBean implements Serializable {
     /**
      * Variables to store the user-input of the login.xhtml input-fields for further processing
      */
-    private String emailAdress;
+    private String emailAddress;
     private String password;
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getPassword() {
@@ -58,9 +60,14 @@ public class  LoginBean implements Serializable {
      * Forwards to SECRET_XHTML_URL if successful.
      */
     public String validateUsernamePassword() {
-        boolean loggedIn = authService.validate(emailAdress, password);
+        List<Boolean> values = authService.validate(emailAddress, password);
+        boolean loggedIn = values.get(0);
+        boolean isAdmin = values.get(1);
         if (loggedIn) {
-            getHttpSession(true).setAttribute(USER_IS_LOGGED_IN, "true");
+            HttpSession s = getHttpSession(true);
+            s.setAttribute(USER_IS_LOGGED_IN, "true");
+            s.setAttribute(USER_IS_ADMIN, String.valueOf(isAdmin));
+
             // ?faces-redirect=true solves "one URL behind" problem
             return SECRET_XHTML_URL + "?faces-redirect=true";
         } else {
@@ -71,7 +78,7 @@ public class  LoginBean implements Serializable {
     /**
      * Get HttpSession object from the FacesContext (JSF) if available or creates a new one if the create-argument is true
      */
-    private HttpSession getHttpSession(boolean create) {
+    public static HttpSession getHttpSession(boolean create) {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(create);
     }
 

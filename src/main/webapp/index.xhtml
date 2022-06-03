@@ -5,9 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="template.xhtml">
 
-
     <ui:define name="main-content">
-
 
         <div class="card">
             <h:form>
@@ -28,7 +26,7 @@
                     <f:facet name="header">CO2-Emissions</f:facet>
                     <p:column style="width: 2em">
                         <h:commandLink action="#{datasource.updateChar(d)}">
-                            <img src="chart-line-solid.svg" alt="Line-Chart" width="25"/>
+                            <i class="pi pi-chart-line" style="font-size: 2rem; color:black"/>
                         </h:commandLink>
                     </p:column>
                     <p:column headerText="Country Name" sortBy="#{d[0]}" sortOrder="asc" filterBy="#{d[0]}">
@@ -44,7 +42,6 @@
                 </p:dataTable>
             </h:form>
         </div>
-
 
     </ui:define>
 </ui:composition>

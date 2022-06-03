@@ -1,27 +1,31 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    template="template.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="template.xhtml">
 
 
     <ui:define name="main-content">
         <h:form id="formLogin">
             <h3>Login</h3>
-            <h:panelGrid columns="2" border="0" cellpadding="3" cellspacing="1">
+            <div class="card">
+                <span>
+                    <p:outputLabel for="email-input" styleClass="p-d-block" indicateRequired="false">E-Mail-Address</p:outputLabel >
+                    <br/>
+                    <p:inputText id="email-input" styleClass="p-d-block" value="#{loginBean.emailAddress}" placeholder="example@email.com" required="true"/>
+                    <br/>
+                    <br/>
+                    <p:outputLabel for="password-input" styleClass="p-d-block" indicateRequired="false">Password</p:outputLabel>
+                    <br/>
+                    <p:password id="password-input" styleClass="p-d-block" value="#{loginBean.password}" required="true"/>
+                    <br/>
+                    <p:commandButton value="Back" action="index.xhtml?faces-redirect=true" immediate="true" styleClass="ui-button-raised ui-button-secondary"/>
+                    <p:commandButton value="Login" action="#{loginBean.validateUsernamePassword}" styleClass="ui-button-raised ui-button-secondary" style="margin: 15px" />
+                </span>
 
-                    <h:outputText for="emailAdressInput" value="E-Mail-Adresse"/>
-                    <h:inputText id="emailAdressInput" value="#{loginBean.emailAdress}" required="true"/>
 
-
-                    <h:outputText for="passwordInput" value="Passwort"/>
-                    <h:inputSecret id="passwordInput" value="#{loginBean.password}" required="true"/>
-
-                <h:commandButton id="btnBack" value="Back"
-                                 action="index.xhtml?faces-redirect=true"/>
-                <h:commandButton id="btnLogin" value="Login"
-                                 action="#{loginBean.validateUsernamePassword}"/>
-            </h:panelGrid>
+            </div>
 
         </h:form>
     </ui:define>

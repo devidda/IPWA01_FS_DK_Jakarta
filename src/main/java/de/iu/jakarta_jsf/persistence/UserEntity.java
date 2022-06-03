@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 public class UserEntity {
 
     public static final String COLUMN_MAIL_ADDRESS = "mailAddress";
+    public static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_ADMIN = "admin";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +19,10 @@ public class UserEntity {
 
     @Column(name = COLUMN_MAIL_ADDRESS, unique = true)
     private String mailAddress;
-
+    @Column(name = COLUMN_PASSWORD)
     private String password;
+    @Column(name = COLUMN_ADMIN, columnDefinition = "boolean default false")
+    private Boolean isAdmin;
 
     // getter and setter methods
     public long getId() {
@@ -43,5 +47,13 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }
