@@ -1,0 +1,42 @@
+body {
+    background-color: #cecece;
+    color: #4e5255;
+    font: 1em "Open Sans", sans-serif;
+}
+
+#container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 10px auto;
+    height: 100%;
+    max-width: 1280px;
+}
+
+#container > div {
+    width: 100%;
+    padding: 20px;
+}
+
+#main {
+    background-color: #fff;
+    min-height: 80%;
+}
+
+#header {
+    background-color: rgba(244, 153, 16, 0.8);
+    color: #ffffff;
+    font: 1.5em "Open Sans", sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+
+#footer {
+    background-color: #a9a9a9;
+}
+
+#footer a {
+    text-decoration: none;
+}
