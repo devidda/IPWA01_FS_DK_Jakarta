@@ -1,14 +1,176 @@
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
     template="template.xhtml">
 
 <ui:define name="main-content">
-   <span>Your are now logged in!</span>
+
+   <style type="text/css">
+      .denied {
+         background-color: #ff1818 !important;
+         background-image: none !important;
+         color: #ffffff !important;
+      }
+      .approved {
+         background-color: #54a90a !important;
+         background-image: none !important;
+         color: #ffffff !important;
+      }
+   </style>
+
    <h:form>
-      <h:commandLink id="linkLogout" action="#{loginBean.logout}">Logout</h:commandLink>
+      <p:outputLabel id="signed-in-message" value="#{managementBean.generateSignedInMessage()}"/>
    </h:form>
+
+   <div class="card">
+      <h:form id="requestOverview">
+         <p:dataTable id="requests"
+                      var="requestEntity"
+                      value="#{managementBean.requests}"
+                      lazy="false"
+                      rowKey="#{requestEntity.requestId}"
+                      editable="true"
+                      style="margin-top: 20px"
+                      rowStyleClass="#{requestEntity.status == 'DENIED' ? 'denied':
+                                       requestEntity.status == 'APPROVED' ? 'approved':''}"
+         >
+            <f:facet name="header">
+               Expand rows to see detailed information
+            </f:facet>
+
+            <p:column style="width:2rem">
+               <p:rowToggler/>
+            </p:column>
+
+            <p:column headerText="Request-ID">
+               <h:outputText value="#{requestEntity.requestId}" />
+            </p:column>
+
+            <p:column headerText="User">
+               <h:outputText value="#{requestEntity.authorName}" />
+            </p:column>
+
+            <p:column headerText="Time">
+               <h:outputText value="#{requestEntity.date}" />
+            </p:column>
+
+            <p:column headerText="Status">
+               <p:cellEditor>
+                  <f:facet name="output"><h:outputText value="#{requestEntity.status}"/></f:facet>
+                  <f:facet name="input">
+                     <h:selectOneMenu value="#{requestEntity.status}" style="width:100%">
+                        <f:selectItems value="#{managementBean.requestService.statusList}" var="status"
+                                       itemLabel="#{status}" itemValue="#{status}"/>
+                     </h:selectOneMenu>
+                  </f:facet>
+               </p:cellEditor>
+            </p:column>
+
+            <p:column style="width:6rem" rendered="#{managementBean.isAdmin}">
+               <p:rowEditor/>
+            </p:column>
+
+            <p:rowExpansion>
+               <div class="mainRequest">
+                  <div class="requestValueEntity">
+                     <h:form id="requestValueEntityTable">
+                        <p:dataTable var="subRequest"
+                                     value="#{requestEntity.subRequests}"
+                                     lazy="true"
+                        >
+                           <p:column headerText="Country">
+                              <h:outputText value="#{subRequest.country}" />
+                           </p:column>
+
+                           <p:column headerText="Year">
+                              <h:outputText value="#{subRequest.year}" />
+                           </p:column>
+
+                           <p:column headerText="Emission">
+                              <h:outputText value="#{subRequest.emission}" />
+                           </p:column>
+                        </p:dataTable>
+                     </h:form>
+                  </div>
+               </div>
+            </p:rowExpansion>
+
+         </p:dataTable>
+
+         <p:commandButton value="Save Changes" action="#{managementBean.updateRequests()}" rendered="#{managementBean.isAdmin}" style="margin: 10px"/>
+
+      </h:form>
+   </div>
+
+   <div class="card">
+      <h:form id="createRequest" rendered="#{!(managementBean.isAdmin)}">
+         <p:growl id="msgs" showDetail="true"/>
+
+         <p:dataTable id="requestsCreation"
+                      widgetVar="requests"
+                      var="requestedValue"
+                      value="#{managementBean.inputs}"
+                      editable="true"
+                      rowKey="#{requestedValue.id}"
+                      selection="#{managementBean.selectedRequestedValueEntity}"
+                      selectionMode="single"
+                      style="margin-top: 100px"
+         >
+            <f:facet name="header">
+               Row Editing with add functionality
+            </f:facet>
+
+            <p:ajax event="rowEdit" listener="#{managementBean.onRowEdit}" update=":createRequest:msgs"/>
+            <p:ajax event="rowEditCancel" listener="#{managementBean.onRowCancel}" update=":createRequest:msgs"/>
+
+            <p:column headerText="Country">
+               <p:cellEditor>
+                  <f:facet name="output"><h:outputText value="#{requestedValue.country}"/></f:facet>
+                  <f:facet name="input"><p:inputText id="modelInput" value="#{requestedValue.country}"
+                                                     style="width:100%"/></f:facet>
+               </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Year">
+               <p:cellEditor>
+                  <f:facet name="output"><h:outputText value="#{requestedValue.year}"/></f:facet>
+                  <f:facet name="input"><p:inputText value="#{requestedValue.year}" style="width:100%"
+                                                     label="Year"/></f:facet>
+               </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Emission">
+               <p:cellEditor>
+                  <f:facet name="output"><h:outputText value="#{requestedValue.emission}"/></f:facet>
+                  <f:facet name="input"><p:inputText value="#{requestedValue.emission}" style="width:100%"
+                                                     label="Emission"/></f:facet>
+               </p:cellEditor>
+            </p:column>
+
+            <p:column style="width:6rem">
+               <p:rowEditor/>
+            </p:column>
+
+         </p:dataTable>
+
+         <p:contextMenu for="requestsCreation">
+            <p:menuitem value="Delete" update="createRequest" icon="pi pi-times"
+                        action="#{managementBean.deleteRequestedValueEntity()}"/>
+         </p:contextMenu>
+
+         <div class="p-grid p-mt-3">
+            <div class="p-col-12">
+               <p:commandButton value="Add new row" process="@this" update="createRequest :createRequest:msgs"
+                                action="#{managementBean.addNewInput()}" style="margin: 10px"/>
+               <p:commandButton value="Submit data" process="@this" update="requestOverview createRequest :createRequest:msgs"
+                                action="#{managementBean.submitDataInput()}" style="margin: 10px"/>
+            </div>
+         </div>
+
+      </h:form>
+   </div>
+
 </ui:define>
 </ui:composition>

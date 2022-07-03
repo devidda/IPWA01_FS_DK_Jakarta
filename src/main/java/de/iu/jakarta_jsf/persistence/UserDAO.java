@@ -22,9 +22,6 @@ public class UserDAO {
     @PersistenceContext
     EntityManager em;
 
-    /**
-     * Used to create entries in the database.
-     */
     public void persist(UserEntity userEntity) {
         em.persist(userEntity);
     }

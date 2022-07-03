@@ -9,39 +9,46 @@
 
         <div class="card">
             <h:form>
-                <p:chart id="chart" type="line" model="#{datasource.createChartModel()}"
+                <p:chart id="lineChart" type="line" model="#{mainDataBean.createChartModel()}"
                          style="min-height: 35em; max-width: 85%; margin: 5% auto "/>
             </h:form>
         </div>
-<!--        style="height: 25em;width: 40em"-->
+
         <div id="formDataTable">
             <h:form>
-                <p:dataTable var="d"
-                             value="#{datasource.data.subList(1, datasource.data.size())}"
+                <p:dataTable var="dataRow"
+                             value="#{mainDataBean.data}"
                              scrollable="true"
                              scrollHeight="600"
                              allowUnsorting="true"
                              sortMode="single"
-                             emptyMessage="No country found.">
+                             emptyMessage="No country found."
+                >
+
                     <f:facet name="header">CO2-Emissions</f:facet>
+
                     <p:column style="width: 2em">
-                        <h:commandLink action="#{datasource.updateChar(d)}">
+                        <h:commandLink action="#{mainDataBean.updateChar(dataRow.country)}">
                             <i class="pi pi-chart-line" style="font-size: 2rem; color:black"/>
                         </h:commandLink>
                     </p:column>
-                    <p:column headerText="Country Name" sortBy="#{d[0]}" sortOrder="asc" filterBy="#{d[0]}">
-                        <h:outputText value="#{d[0]}"/>
+
+                    <p:column headerText="Country Name" sortBy="#{dataRow.country}" sortOrder="asc" filterBy="#{dataRow.country}">
+                        <h:outputText value="#{dataRow.country}"/>
                     </p:column>
+
                     <p:column headerText="Most Recent Year">
-                        <h:outputText value="#{datasource.data[0][datasource.data[0].size()-1]}"/>
+                        <h:outputText value="#{dataRow.year}"/>
                     </p:column>
-                    <p:column headerText="Most Recent Value (MtCO2e)" sortBy="#{datasource.emptyCheck(d[d.size()-1])}"
-                              sortFunction="#{datasource.sort}">
-                        <h:outputText value="#{datasource.emptyCheck(d[d.size()-1])}"/>
+
+                    <p:column headerText="Most Recent Value (MtCO2e)" sortBy="#{dataRow.emission}">
+                        <h:outputText value="#{dataRow.emission}"/>
                     </p:column>
+
                 </p:dataTable>
             </h:form>
         </div>
+
 
     </ui:define>
 </ui:composition>

@@ -7,6 +7,7 @@ import jakarta.persistence.*;
  * Accessed and processed for validation in {@link de.iu.jakarta_jsf.services.AuthServiceImpl}.
  */
 @Entity
+@Table(name = "User")
 public class UserEntity {
 
     public static final String COLUMN_MAIL_ADDRESS = "mailAddress";
@@ -21,10 +22,13 @@ public class UserEntity {
     private String mailAddress;
     @Column(name = COLUMN_PASSWORD)
     private String password;
-    @Column(name = COLUMN_ADMIN, columnDefinition = "boolean default false")
-    private Boolean isAdmin;
 
-    // getter and setter methods
+    @Column(name = COLUMN_ADMIN)
+    private Boolean isAdmin = false;
+
+    /**
+     * getter and setter
+     */
     public long getId() {
         return id;
     }
@@ -50,6 +54,7 @@ public class UserEntity {
     }
 
     public Boolean getAdmin() {
+        if (isAdmin == null) return false;
         return isAdmin;
     }
 
