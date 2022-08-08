@@ -23,7 +23,7 @@
                     <br/>
                     <p:password id="password-input" styleClass="p-d-block" value="#{loginBean.password}" required="true"/>
                     <br/>
-                    <p:commandButton value="Back" action="index.xhtml?faces-redirect=true" immediate="true" styleClass="ui-button-raised ui-button-secondary"/>
+                    <p:commandButton value="Back" action="data.xhtml?faces-redirect=true" immediate="true" styleClass="ui-button-raised ui-button-secondary"/>
                     <p:commandButton value="Login" action="#{loginBean.validateUsernamePassword}" actionListener="#{loginBean.showLoginError}" update="growl" styleClass="ui-button-raised ui-button-secondary" style="margin: 15px" />
                 </span>
             </div>

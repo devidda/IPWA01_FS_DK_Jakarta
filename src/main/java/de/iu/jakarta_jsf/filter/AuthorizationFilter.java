@@ -48,7 +48,7 @@ public class AuthorizationFilter  implements Filter {
      */
     private void redirectToStart(HttpServletResponse servletResponse) throws IOException {
         HttpServletResponse response = servletResponse;
-        response.sendRedirect(INDEX_XHTML_URL);
+        response.sendRedirect(DATA_XHTML_URL);
     }
 
     /**
@@ -59,10 +59,10 @@ public class AuthorizationFilter  implements Filter {
     }
 
     /**
-     * Check if the requested page is the index page or a resource.
+     * Check if the requested page isn't a public page or a resource.
      */
     private boolean isPrivatePage(String url) {
-        return !(url.contains(INDEX_XHTML_URL) || url.contains(LOGIN_XHTML_URL) || url.contains(JAKARTA_FACES_RESOURCE));
+        return !(url.contains(DATA_XHTML_URL) || url.contains(LOGIN_XHTML_URL) || url.contains(JAKARTA_FACES_RESOURCE));
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * This class is the Backing-Bean for the index.xhtml page
+ * This class is the Backing-Bean for the data.xhtml page
  * and provides the selected data for the LineChartModel and the datatable.
  */
 @Named
@@ -55,7 +55,7 @@ public class MainDataBean implements Serializable {
 
     /**
      * Returns a primefaces-LineChartModel using data it loads for the given countryLabel-variable.
-     * It is called at the top in index.xhtml
+     * It is called at the top in data.xhtml
      */
     public LineChartModel createChartModel() {
         LineChartModel model = new LineChartModel();

@@ -6,22 +6,13 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Startup;
 import jakarta.ejb.Singleton;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Path;
-import jakarta.persistence.criteria.Root;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static de.iu.jakarta_jsf.persistence.UserEntity.COLUMN_MAIL_ADDRESS;
 
 /**
  * Helper-class to initialize a few entries of user credentials in the database.
@@ -38,11 +29,6 @@ public class TestDataGenerator {
     MainCo2DataDAO dataDAO;
 
     private static final String DATA_FILE_PATH = "ghg-emissions.csv";
-//    @Inject
-//    RequestDAO requestDAO;
-//
-//    @PersistenceContext
-//    EntityManager em;
 
     @PostConstruct
     public void setupTestData() {
@@ -101,28 +87,4 @@ public class TestDataGenerator {
         }
         return records;
     }
-
-//        MainCo2DataEntity d1 = new MainCo2DataEntity();
-//        d1.setCountry("USA");
-//        d1.setYear(2021);
-//        d1.setEmission(42);
-//        dataDAO.persist(d1);
-//
-//        MainCo2DataEntity d2 = new MainCo2DataEntity();
-//        d2.setCountry("USA");
-//        d2.setYear(2022);
-//        d2.setEmission(60);
-//        dataDAO.persist(d2);
-//
-//        MainCo2DataEntity d3 = new MainCo2DataEntity();
-//        d3.setCountry("Germany");
-//        d3.setYear(2018);
-//        d3.setEmission(43);
-//        dataDAO.persist(d3);
-//
-//        MainCo2DataEntity d4 = new MainCo2DataEntity();
-//        d4.setCountry("Germany");
-//        d4.setYear(2017);
-//        d4.setEmission(666);
-//        dataDAO.persist(d4);
 }

@@ -19,7 +19,7 @@ import java.util.List;
 @SessionScoped
 public class  LoginBean implements Serializable {
 
-    public static final String INDEX_XHTML_URL = "index.xhtml";
+    public static final String DATA_XHTML_URL = "data.xhtml";
     public static final String LOGIN_XHTML_URL = "login.xhtml";
     public static final String SECRET_XHTML_URL = "management.xhtml";
     public static final String USER_IS_LOGGED_IN = "user_is_logged_in";
@@ -85,7 +85,7 @@ public class  LoginBean implements Serializable {
     public String logout() {
         getHttpSession(false).invalidate();
         renderSignOut = false;
-        return INDEX_XHTML_URL + "?faces-redirect=true";
+        return DATA_XHTML_URL + "?faces-redirect=true";
     }
 
     /**

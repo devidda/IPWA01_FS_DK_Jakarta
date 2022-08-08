@@ -3,7 +3,7 @@ package de.iu.jakarta_jsf.persistence;
 import jakarta.persistence.*;
 
 /**
- * This data is accessed and displayed on the main-page (index.xhtml)
+ * This data is accessed and displayed on the main-page (data.xhtml)
  * and has been previously approved by a peer-reviewer.
  */
 @Entity

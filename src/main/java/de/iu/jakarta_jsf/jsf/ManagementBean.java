@@ -125,7 +125,7 @@ public class ManagementBean implements Serializable {
      * If the logged-in user is not an admin, only the user's requests
      * (identified through the email-address) will be loaded.
      */
-    public List<RequestEntity> getUserRequestList() {
+    private List<RequestEntity> getUserRequestList() {
         if (isAdmin) {
             return requestService.getAllRequests();
         }

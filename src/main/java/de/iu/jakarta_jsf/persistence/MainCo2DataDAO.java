@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * DAO for accessing, modifying and storing the MainCO2DataEntities
- * which are used by the index.xhtml page for displaying the data
+ * which are used by the data.xhtml page for displaying the data
  */
 @Stateless
 public class MainCo2DataDAO {
