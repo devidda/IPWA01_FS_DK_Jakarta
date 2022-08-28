@@ -3,6 +3,7 @@
 Verwendet werden das Jakarta Server Faces Framework, PrimeFaces und JPA.
 Dieses Projekt folgt aus der Aufgabenstellung zweier Fallstudien in zwei Modulen der IU Internationalen Hochschule. Ein Modul beschäftigt sich mehr mit der generellen Webseiten-Programmierung z.B. mit JSF, während das andere die Datenhaltung per JPA zur Grundlage hat.
 
+## Aufbau
 Im Folgenden ein UML-Diagramm zur Veranschaulichung der 3-Schichten-Architektur der Webseite:
 ![xlarge-dia](https://user-images.githubusercontent.com/75684697/187073767-c5c64c8b-8654-4bf6-9805-6a419f869ff4.png)
 
