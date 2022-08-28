@@ -1,7 +1,7 @@
-# IPWA01_FS_DK_Jakarta
-Eine Website im Jakarta Server Faces Framework mit PrimeFaces und JPA.
-Dieses Projekt folgt aus der Aufgabenstellung einer Fallstudie für das Modul "Programmierung von Web-Anwendungsoberflächen" (IPWA01) der IU Internationale Hochschule.
-Code-Kommentare werden noch eingefügt.
+# Projekt zum Programmieren einer Webseite in Java
+
+Verwendet werden das Jakarta Server Faces Framework, PrimeFaces und JPA.
+Dieses Projekt folgt aus der Aufgabenstellung zweier Fallstudien in zwei Modulen der IU Internationalen Hochschule. Ein Modul beschäftigt sich mehr mit der generellen Webseiten-Programmierung z.B. mit JSF, während das andere die Datenhaltung per JPA zur Grundlage hat.
 
 Im Folgenden der grobe Aufbau der 3-Schichten-Architektur:
 ![xlarge-dia](https://user-images.githubusercontent.com/75684697/187073767-c5c64c8b-8654-4bf6-9805-6a419f869ff4.png)
