@@ -17,5 +17,4 @@ Für den Login werden Daten aus einer einfachen lokalen JPA-Datenbank abgefragt 
 ![Login](https://user-images.githubusercontent.com/75684697/187070296-202b3ec5-2580-4647-bb93-b95641588ed1.png)
 
 ## Management (management.xhtml)
-Im Verwaltungsbereich, der sich nur eingeloggt besuchen lässt, kann die der Hauptseite zu Grunde liegende Datenbank bearbeitet werden.
-![Verwaltung (management xhtml)](https://user-images.githubusercontent.com/75684697/167375585-9a83f360-a973-4e23-b11b-3229c13bee97.png)
+Im Verwaltungsbereich, der sich nur eingeloggt besuchen lässt, kann die der Hauptseite zu Grunde liegende Datenbank bearbeitet werden. Die Funktionen dieser Seite sind nicht für IPWA01 relevant.
